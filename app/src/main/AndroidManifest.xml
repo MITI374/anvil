@@ -237,6 +237,21 @@
         </activity-alias>
 
         <activity
+            android:name=".kove.KoveCalibrationActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="io.github.miti374.anvil.calibration"
+            android:label="@string/kove_calibration_label"
+            android:icon="@mipmap/ic_launcher"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Material.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".main.SettingsActivity"
             android:label="@string/settings"
             android:windowSoftInputMode="stateHidden|adjustResize"

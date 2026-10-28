@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="app_name">Open Headunit</string>
+<string name="app_name">Anvil</string>
     <string name="menu">Menu</string>
     <string name="settings">Definições</string>
 
@@ -186,7 +186,7 @@
     <string name="video">Android Auto</string>
     <string name="self_mode">Modo Próprio</string>
     <string name="to_android_auto">Para o Android Auto</string>
-    <string name="title">Open Headunit</string>
+    <string name="title">Anvil</string>
     <string name="remove">Remover</string>
     <string name="usb">USB</string>
     <string name="wifi">Wi-Fi</string>
@@ -1288,7 +1288,7 @@
     <string name="dpi_size_m">M</string>
     <string name="dpi_size_l">L</string>
     <string name="dpi_size_xl">XL</string>
-    <string name="github_issues_url">https://github.com/andreknieriem/open-headunit/issues</string>
+    <string name="github_issues_url">https://github.com/MITI374/anvil/issues</string>
     <string name="support_rules_english_title">All posts in English</string>
     <string name="support_rules_english_desc">Por favor, escreva o seu problema sempre em inglês para que o responsável pelo projeto e a comunidade possam ajudar. Não se preocupe com erros de gramática; pode utilizar o Google Translate ou o DeepL para ajudar a redigir a mensagem.</string>
     <string name="debug_video_fault_injection">Injeção de falhas de vídeo</string>

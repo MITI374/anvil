@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="kove_calibration_label">Anvil – screen fit</string>
+    <string name="kove_calibration_title">Fit the picture to the Kove display</string>
+    <string name="kove_calibration_help">Start Android Auto with the motorcycle connected. A green frame on the motorcycle display marks where the picture goes. Move the sliders until the top and bottom edges of the frame sit just inside the display\'s own top and bottom strips. Moving the bottom slider below zero cuts the bottom of Android Auto (widgets and app bar) off and gives the space to the map; the phone still shows them. Then set the width so the green square in the middle looks square, not like a rectangle.</string>
+    <string name="kove_calibration_top">Top strip (clock, gear): %1$d px</string>
+    <string name="kove_calibration_bottom">Bottom strip (RPM, fuel): %1$d px</string>
+    <string name="kove_calibration_reset">Default</string>
+    <string name="kove_calibration_done">Done</string>
+    <string name="kove_calibration_width">Picture width (proportions): %1$d%%</string>
+    <string name="kove_calibration_bottom_cut">Bottom: Android Auto cut off by %1$d px</string>
+</resources>

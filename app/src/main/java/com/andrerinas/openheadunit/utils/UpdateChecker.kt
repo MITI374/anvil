@@ -83,8 +83,8 @@ data class UpdateInfo(
 
 object UpdateChecker {
     private const val TAG = "UpdateChecker"
-    private const val GITHUB_RELEASES_API = "https://api.github.com/repos/andreknieriem/open-headunit/releases?per_page=5"
-    const val GITHUB_RELEASES_WEB = "https://github.com/andreknieriem/open-headunit/releases"
+    private const val GITHUB_RELEASES_API = "https://api.github.com/repos/MITI374/anvil/releases?per_page=5"
+    const val GITHUB_RELEASES_WEB = "https://github.com/MITI374/anvil/releases"
 
     fun isPlayStoreInstallation(context: Context): Boolean {
         if (BuildConfig.FLAVOR == "playstore") return true
@@ -108,7 +108,7 @@ object UpdateChecker {
                 connectTimeout = 8000
                 readTimeout = 8000
                 requestMethod = "GET"
-                setRequestProperty("User-Agent", "OpenHeadunit-App")
+                setRequestProperty("User-Agent", "Anvil-App")
                 setRequestProperty("Accept", "application/vnd.github.v3+json")
             }
             if (conn is HttpsURLConnection) {

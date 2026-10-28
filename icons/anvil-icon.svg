@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="432" height="432">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#2B3440"/>
+      <stop offset="1" stop-color="#0E1217"/>
+    </radialGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E9EEF2"/>
+      <stop offset="0.55" stop-color="#AEB8C2"/>
+      <stop offset="1" stop-color="#6E7A86"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFB13B"/>
+      <stop offset="1" stop-color="#FF6A00"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FF8A1F" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FF8A1F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="108" height="108" fill="url(#bg)"/>
+  <!-- glow where the pin meets the anvil -->
+  <ellipse cx="60" cy="44" rx="20" ry="7" fill="url(#glow)"/>
+  <!-- anvil: horn to the left, flat face, narrow waist, flared foot -->
+  <path fill="url(#steel)" d="
+    M18 48
+    C24 44 30 43 36 43
+    L86 43 L86 52 L79 53
+    C75 55 72 58 71 62
+    L71 66 L80 72 L80 77
+    L35 77 L35 72 L44 66 L44 62
+    C43 57 40 54 34 53
+    C27 52 22 51 18 48 Z"/>
+  <!-- top face highlight -->
+  <path fill="#FFFFFF" fill-opacity="0.55" d="M36 43 L86 43 L86 45 L35 45 C29 45 24 46 20 47 C25 44.5 30 43 36 43 Z"/>
+  <!-- map pin standing on the face -->
+  <path fill="url(#pin)" d="M60 43 C54 35 50 30.5 50 25.5 A10 10 0 0 1 70 25.5 C70 30.5 66 35 60 43 Z"/>
+  <circle cx="60" cy="25.5" r="3.8" fill="#1A1F25"/>
+  <!-- sparks -->
+  <g stroke="#FFB13B" stroke-width="1.6" stroke-linecap="round">
+    <line x1="74" y1="34" x2="79" y2="31"/>
+    <line x1="75" y1="39" x2="81" y2="39"/>
+    <line x1="46" y1="34" x2="41" y2="31"/>
+  </g>
+</svg>

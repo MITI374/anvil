@@ -35,6 +35,9 @@ class AboutFragment : Fragment() {
         val contentText = view.findViewById<TextView>(R.id.about_content_text)
         
         val sb = StringBuilder()
+        sb.append("<h3>Anvil</h3>")
+        sb.append("Android Auto on the Kove 800X display. An unofficial hobby project, not affiliated with Kove or Google, built on Open Headunit by Andr\u00e9 Rinas.<br/>")
+        sb.append("<a href=\"https://github.com/MITI374/anvil\">https://github.com/MITI374/anvil</a><br/><br/>")
         sb.append("<b>Special thanks to Mike Reidis for the original idea and android auto protocol and code.</b><br/>")
         sb.append("<a href=\"https://github.com/mikereidis/headunit\">https://github.com/mikereidis/headunit</a><br/><br/>")
         sb.append("<h3>Issues, bugs, and feedback or questions</h3>")

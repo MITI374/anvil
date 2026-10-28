@@ -284,6 +284,7 @@ internal class AapVideo(private val videoDecoder: VideoDecoder, private val sett
         return when (val action = decision.action) {
             is VideoFragmentAssembler.Action.DecodeWhole -> {
                 messageBuffer.clear()
+                com.andrerinas.openheadunit.kove.KoveBridge.onVideo(buf, action.payloadOffset, len - action.payloadOffset)
                 videoDecoder.decode(buf, action.payloadOffset, len - action.payloadOffset, settings.forceSoftwareDecoding, settings.videoCodec)
                 true
             }
@@ -350,8 +351,10 @@ internal class AapVideo(private val videoDecoder: VideoDecoder, private val sett
                         legacyAssembledBuffer = ByteArray(assembledSize + 1024)
                     }
                     messageBuffer.get(legacyAssembledBuffer!!, 0, assembledSize)
+                    com.andrerinas.openheadunit.kove.KoveBridge.onVideo(legacyAssembledBuffer!!, 0, assembledSize)
                     videoDecoder.decode(legacyAssembledBuffer!!, 0, assembledSize, settings.forceSoftwareDecoding, settings.videoCodec)
                 } else {
+                    com.andrerinas.openheadunit.kove.KoveBridge.onVideo(messageBuffer.array(), 0, assembledSize)
                     videoDecoder.decode(messageBuffer.array(), 0, assembledSize, settings.forceSoftwareDecoding, settings.videoCodec)
                 }
 

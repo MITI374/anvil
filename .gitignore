@@ -82,3 +82,11 @@ deploy_old_tablet.sh
 .antigravitycli
 .agents
 dev-note8.ps1
+
+# Anvil
+key.properties
+builds/
+kove_mirror_log.txt
+*.txt.log
+.kotlin/
+icons/podglad-ikon.html

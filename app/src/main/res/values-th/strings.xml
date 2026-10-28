@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Open Headunit</string>
+    <string name="app_name">Anvil</string>
     <string name="menu">เมนู</string>
     <string name="settings">การตั้งค่า</string>
 
@@ -185,7 +185,7 @@
     <string name="video">Android Auto</string>
     <string name="self_mode">โหมดตนเอง (Self Mode)</string>
     <string name="to_android_auto">ไปที่ Android Auto</string>
-    <string name="title">Open Headunit</string>
+    <string name="title">Anvil</string>
     <string name="remove">ลบ</string>
     <string name="usb">USB</string>
     <string name="wifi">Wi-Fi</string>
@@ -1288,7 +1288,7 @@
     <string name="dpi_size_m">M</string>
     <string name="dpi_size_l">L</string>
     <string name="dpi_size_xl">XL</string>
-    <string name="github_issues_url">https://github.com/andreknieriem/open-headunit/issues</string>
+    <string name="github_issues_url">https://github.com/MITI374/anvil/issues</string>
     <string name="support_rules_english_title">All posts in English</string>
     <string name="support_rules_english_desc">โปรดเขียนปัญหาของคุณเป็นภาษาอังกฤษเสมอ เพื่อให้ผู้ดูแลและชุมชนสามารถช่วยเหลือได้ ไม่ต้องกังวลเรื่องไวยากรณ์ คุณสามารถใช้ Google Translate หรือ DeepL ช่วยแปลได้</string>
     <string name="debug_video_fault_injection">การแทรกข้อผิดพลาดของวิดีโอ</string>

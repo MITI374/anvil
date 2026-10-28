@@ -654,8 +654,14 @@ class AapService : Service() {
                 Intent.ACTION_SCREEN_OFF -> {
                     screenOffTimestamp = SystemClock.elapsedRealtime()
                     AppLog.i("WakeDetect: SCREEN_OFF")
-                    commManager.pauseForSleep()
-                    maybeInferredAccPowerLoss { goAsync() }
+                    if (com.andrerinas.openheadunit.kove.KoveBridge.isActive) {
+                        // Kove fork: the motorcycle display keeps showing Android Auto with the
+                        // phone screen off, so the session must not be paused here.
+                        AppLog.i("WakeDetect: Kove bridge active - keeping the session running")
+                    } else {
+                        commManager.pauseForSleep()
+                        maybeInferredAccPowerLoss { goAsync() }
+                    }
                 }
                 Intent.ACTION_SCREEN_ON -> {
                     val now = SystemClock.elapsedRealtime()
@@ -1319,6 +1325,8 @@ class AapService : Service() {
         (wifiLauncherManager.active as? WifiLauncherNative)?.handshakeManager?.projectionQrSnapshot()
 
     private fun onConnected() {
+        // Kove fork: mirror this Android Auto session to the motorcycle TFT.
+        com.andrerinas.openheadunit.kove.KoveBridge.start(this)
         usbLauncherManager.setSwitchingToProjection(false)
         updateNotification()
         // Whatever the transport, the wake-up loop has nothing left to do. Event driven rather
@@ -1430,6 +1438,12 @@ class AapService : Service() {
         projectionRaiseJob = serviceScope.launch {
             delay(ProjectionRaiseDeadlinePolicy.DEADLINE_MS)
             if (commManager.connectionState.value is CommManager.ConnectionState.TransportStarted) return@launch
+            if (com.andrerinas.openheadunit.kove.KoveBridge.isActive) {
+                // Kove fork: the motorcycle display is what reads this session, so a phone screen
+                // that never came up (locked phone, no overlay permission) is no reason to end it.
+                AppLog.i("AapService: projection screen not up, Kove bridge reads the session - keeping it")
+                return@launch
+            }
             when (ProjectionRaiseDeadlinePolicy.actionFor(projectionRaisesThisSession, unprojectedEndsInARow)) {
                 ProjectionRaiseDeadlinePolicy.Action.RETRY_RAISE -> {
                     AppLog.w("AapService: the handshake finished ${ProjectionRaiseDeadlinePolicy.DEADLINE_MS}ms " +
@@ -1571,6 +1585,7 @@ class AapService : Service() {
      * 4. Scheduling a reconnect attempt if applicable (see [scheduleReconnectIfNeeded])
      */
     private fun onDisconnected(state: CommManager.ConnectionState.Disconnected) {
+        com.andrerinas.openheadunit.kove.KoveBridge.stop()
         // A failed USB open has no live AAP resources to retire. Its Save loop and fallback
         // still own recovery; an end after the open has run onConnected and needs the full cleanup.
         if (!state.hadPhysicalConnection && state.settingsRetryOwner?.acceptsSettingsRestart(state) == true) return

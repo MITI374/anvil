@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Open Headunit</string>
+    <string name="app_name">Anvil</string>
     <string name="menu">Menu</string>
     <string name="settings">Pengaturan</string>
 
@@ -185,7 +185,7 @@
     <string name="video">Android Auto</string>
     <string name="self_mode">Mode Mandiri</string>
     <string name="to_android_auto">Ke Android Auto</string>
-    <string name="title">Open Headunit</string>
+    <string name="title">Anvil</string>
     <string name="remove">Hapus</string>
     <string name="usb">USB</string>
     <string name="wifi">Wi-Fi</string>
@@ -1290,7 +1290,7 @@
     <string name="dpi_size_m">M</string>
     <string name="dpi_size_l">L</string>
     <string name="dpi_size_xl">XL</string>
-    <string name="github_issues_url">https://github.com/andreknieriem/open-headunit/issues</string>
+    <string name="github_issues_url">https://github.com/MITI374/anvil/issues</string>
     <string name="support_rules_english_title">All posts in English</string>
     <string name="support_rules_english_desc">Harap selalu tulis issue Anda dalam bahasa Inggris agar pengembang dan komunitas dapat membantu. Tidak perlu khawatir tentang kesalahan tata bahasa; Anda dapat menggunakan Google Translate atau DeepL untuk membantu merapikan pesan Anda.</string>
     <string name="debug_video_fault_injection">Injeksi kesalahan video</string>

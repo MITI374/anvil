@@ -10,6 +10,10 @@ import com.andrerinas.openheadunit.connection.wifi.direct.WifiBandCapability
 import com.andrerinas.openheadunit.decoder.video.VideoDecoder
 import kotlin.math.roundToInt
 
+
+private const val KOVE_TFT_WIDTH = 600
+private const val KOVE_TFT_HEIGHT = 1024
+
 object HeadUnitScreenConfig {
 
     private var screenWidthPx: Int = 0
@@ -174,6 +178,7 @@ object HeadUnitScreenConfig {
 
 
     fun init(context: Context, displayMetrics: DisplayMetrics, settings: Settings) {
+        com.andrerinas.openheadunit.kove.KoveSettings.load(context)
         videoFitMode = settings.videoFitMode
         forcedScale = settings.forcedScale && settings.viewMode == Settings.ViewMode.SURFACE
 
@@ -657,13 +662,33 @@ object HeadUnitScreenConfig {
         videoFitMode, screenWidthPx, screenHeightPx, getNegotiatedWidth(), getNegotiatedHeight()
     )
 
+    /**
+     * Kove fork: Android Auto lays out inside the motorcycle TFT's 600:1024 shape, not the phone's
+     * narrower one. A portrait stream keeps its full width and gives up only the few rows the TFT
+     * does not have; the bridge crops them off. Everything that reads the margins (the announcement,
+     * touch mapping, the phone view) reads these, so they stay consistent.
+     */
+    private fun koveMargins(): Pair<Int, Int>? {
+        val w = getNegotiatedWidth()
+        val h = getNegotiatedHeight()
+        if (w <= 0 || h <= w) return null
+        // Only the part between the motorcycle's own instrument strips is visible.
+        val visibleH = com.andrerinas.openheadunit.kove.KoveSettings.visibleHeight(KOVE_TFT_HEIGHT)
+        // A TFT that stretches each pixel sideways shows a wider area than its pixel count says.
+        val shownWidth = KOVE_TFT_WIDTH * com.andrerinas.openheadunit.kove.KoveSettings.pixelStretch
+        val contentH = Math.round(w * visibleH / shownWidth)
+        return Pair(0, (h - contentH).coerceAtLeast(0))
+    }
+
     fun getHeightMargin(): Int {
+        koveMargins()?.let { return it.second }
         val fallback = adoptedFallback ?: return if (marginStrategy() == MarginStrategyPolicy.Strategy.PAR) 0
             else ProjectionGeometryPolicy.heightMargin(getNegotiatedHeight(), screenHeightPx, scaleFactor)
         return scaledFallbackMargins(fallback).height
     }
 
     fun getWidthMargin(): Int {
+        koveMargins()?.let { return it.first }
         val fallback = adoptedFallback ?: return if (marginStrategy() == MarginStrategyPolicy.Strategy.PAR) 0
             else ProjectionGeometryPolicy.widthMargin(getNegotiatedWidth(), screenWidthPx, scaleFactor)
         return scaledFallbackMargins(fallback).width

@@ -93,11 +93,11 @@ android {
         // installs, testers) and existing users just get a normal update. Only the display name
         // changed to Open Headunit. The code package and namespace stay openheadunit, so the
         // applicationId deliberately differs from the namespace, like com.google.talk for Hangouts.
-        applicationId = "com.andrerinas.headunitrevived"
+        applicationId = "io.github.miti374.anvil"
         minSdk = 16
         targetSdk = 36
-        versionCode = 117
-        versionName = "3.5.0-beta4"
+        versionCode = 1
+        versionName = "1.0.0"
         setProperty("archivesBaseName", "${applicationId}_${versionName}")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true

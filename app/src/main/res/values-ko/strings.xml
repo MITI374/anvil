@@ -1,7 +1,7 @@
 <resources>
     <string name="aaudio_output">AAudio 출력 (실험적)</string>
     <string name="aaudio_output_description">저지연 미디어 출력을 사용합니다. 지원하지 않으면 AudioTrack으로 자동 전환합니다.</string>
-    <string name="app_name">Open Headunit</string>
+    <string name="app_name">Anvil</string>
     <string name="menu">메뉴</string>
     <string name="settings">설정</string>
 
@@ -16,7 +16,7 @@
     <string name="video">Android Auto</string>
     <string name="self_mode">단독 모드</string>
     <string name="to_android_auto">Android Auto로 전환</string>
-    <string name="title">Open Headunit</string>
+    <string name="title">Anvil</string>
     <string name="remove">제거</string>
     <string name="usb">USB</string>
     <string name="wifi">Wi-Fi</string>
@@ -918,7 +918,7 @@
     <string name="playback_focus_mode_always_hint">Always pauses other audio while Android Auto plays. If your music stops after a second or two whenever Bluetooth is on, switch back to Automatic.</string>
     <string name="playback_focus_mode_never_hint">Never touches system audio focus. Other audio on the headunit may keep playing over Android Auto.</string>
     <string name="playback_focus_mode_static_hint">With Static Audio Focus on, this applies from the moment the phone connects and lasts the whole session, rather than only while audio is playing.</string>
-    <string name="github_issues_url">https://github.com/andreknieriem/open-headunit/issues</string>
+    <string name="github_issues_url">https://github.com/MITI374/anvil/issues</string>
     <string name="support_rules_english_title">All posts in English</string>
     <string name="boot_loop_paused_title">Wireless start-up paused</string>
     <string name="boot_loop_paused_generic">This device restarted three times in a row shortly after Open Headunit started wireless, so wireless was left off this time. USB still works. Open the app to turn it back on.</string>

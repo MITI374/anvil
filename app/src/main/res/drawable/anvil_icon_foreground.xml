@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Anvil with a map pin. Drawn on the 108 grid and scaled into the launcher's safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="0.78"
+        android:scaleY="0.78"
+        android:translateY="2">
+        <!-- glow under the pin -->
+        <path android:pathData="M40,44a20,7 0,1 0,40 0a20,7 0,1 0,-40 0">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="radial"
+                    android:centerX="60"
+                    android:centerY="44"
+                    android:gradientRadius="20">
+                    <item android:offset="0" android:color="#8CFF8A1F" />
+                    <item android:offset="1" android:color="#00FF8A1F" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <!-- anvil: horn to the left, flat face, narrow waist, flared foot -->
+        <path android:pathData="M18,48C24,44 30,43 36,43L86,43L86,52L79,53C75,55 72,58 71,62L71,66L80,72L80,77L35,77L35,72L44,66L44,62C43,57 40,54 34,53C27,52 22,51 18,48Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="54"
+                    android:startY="43"
+                    android:endX="54"
+                    android:endY="77">
+                    <item android:offset="0" android:color="#FFE9EEF2" />
+                    <item android:offset="0.55" android:color="#FFAEB8C2" />
+                    <item android:offset="1" android:color="#FF6E7A86" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <!-- top face highlight -->
+        <path
+            android:fillColor="#8CFFFFFF"
+            android:pathData="M36,43L86,43L86,45L35,45C29,45 24,46 20,47C25,44.5 30,43 36,43Z" />
+        <!-- map pin -->
+        <path android:pathData="M60,43C54,35 50,30.5 50,25.5A10,10 0,0 1,70 25.5C70,30.5 66,35 60,43Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="60"
+                    android:startY="15.5"
+                    android:endX="60"
+                    android:endY="43">
+                    <item android:offset="0" android:color="#FFFFB13B" />
+                    <item android:offset="1" android:color="#FFFF6A00" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path
+            android:fillColor="#FF1A1F25"
+            android:pathData="M56.2,25.5a3.8,3.8 0,1 0,7.6 0a3.8,3.8 0,1 0,-7.6 0" />
+        <!-- sparks -->
+        <path
+            android:pathData="M74,34L79,31M75,39L81,39M46,34L41,31"
+            android:strokeWidth="1.6"
+            android:strokeColor="#FFFFB13B"
+            android:strokeLineCap="round" />
+    </group>
+</vector>

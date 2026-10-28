@@ -2116,7 +2116,11 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         AppLog.i("SurfaceCallback: onSurfaceDestroyed. Surface: $surface")
         isSurfaceSet = false
         val nowMs = SystemClock.elapsedRealtime()
-        if (VideoFocusReleasePolicy.shouldReleaseOnSurfaceLost(
+        if (com.andrerinas.openheadunit.kove.KoveBridge.isActive) {
+            // Kove fork: the phone's own surface is gone (screen off), but the motorcycle display
+            // still needs the stream, so video focus is kept.
+            AppLog.i("AapProjectionActivity: surface lost, Kove bridge active - holding video focus")
+        } else if (VideoFocusReleasePolicy.shouldReleaseOnSurfaceLost(
                 coverFollowsTouch = VideoFocusReleasePolicy.coverFollowsTouch(lastProjectionTouchMs, nowMs),
                 sessionConnected = commManager.isConnected,
                 activityEnding = isFinishing || isChangingConfigurations,

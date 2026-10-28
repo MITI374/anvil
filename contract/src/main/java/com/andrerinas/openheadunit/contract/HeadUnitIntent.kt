@@ -12,7 +12,7 @@ import android.view.KeyEvent
  */
 
 object HeadUnit {
-    const val packageName = "com.andrerinas.headunitrevived"
+    const val packageName = "io.github.miti374.anvil"
 }
 
 class KeyIntent(event: KeyEvent): Intent(action) {

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="432" height="432">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16324F"/>
+      <stop offset="1" stop-color="#0A1420"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#C9D3DC"/>
+    </linearGradient>
+  </defs>
+  <rect width="108" height="108" fill="url(#bg)"/>
+  <!-- road with a route line -->
+  <path d="M10 86 L98 86" stroke="#2C4A68" stroke-width="2"/>
+  <path d="M14 86 C34 86 40 80 54 80 S78 86 96 86" fill="none" stroke="#FF7A00" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"/>
+
+  <!-- wheels: 21" front, 18" rear -->
+  <g fill="none" stroke="#E8EEF3" stroke-width="3.6">
+    <circle cx="33" cy="70" r="11.5"/>
+    <circle cx="78" cy="69" r="12.5"/>
+  </g>
+  <g fill="#E8EEF3">
+    <circle cx="33" cy="70" r="2.4"/>
+    <circle cx="78" cy="69" r="2.4"/>
+  </g>
+
+  <!-- swingarm and fork -->
+  <path d="M33 70 L52 63" stroke="#C9D3DC" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M78 69 L68 43" stroke="#C9D3DC" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- engine -->
+  <path fill="#8796A5" d="M46 56 L60 55 L63 63 L56 67 L46 65 Z"/>
+
+  <!-- body: tail, seat, tank, front fairing -->
+  <path fill="url(#body)" d="
+    M20 51 L30 48 L44 47 L48 45 L58 42 L64 40
+    L69 41 L73 47 L68 50 L60 53 L48 55 L40 55 L30 54 Z"/>
+  <!-- seat -->
+  <path fill="#26313B" d="M30 48 L44 47 L48 45 L52 45 L46 49 L31 50 Z"/>
+  <!-- orange tank and side panel accent -->
+  <path fill="#FF7A00" d="M50 46 L58 42.5 L64 41 L66 45 L60 49 L52 50 Z"/>
+  <!-- tall screen -->
+  <path fill="#9FD3FF" fill-opacity="0.85" d="M66 40 L70 29 L73 30 L71 41 Z"/>
+  <!-- headlight and beak fender -->
+  <path fill="#FFE08A" d="M70 42 L74 43 L73 47 L70 46 Z"/>
+  <path fill="#FF7A00" d="M71 50 L84 54 L81 56 L70 53 Z"/>
+  <!-- high exhaust -->
+  <path d="M42 57 L25 57" stroke="#B0BCC7" stroke-width="3.6" stroke-linecap="round"/>
+  <!-- handlebar -->
+  <path d="M64 38 L68 36" stroke="#E8EEF3" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- map pin -->
+  <path fill="#FF7A00" d="M86 30 C82 25 79.5 22 79.5 18.5 A6.5 6.5 0 0 1 92.5 18.5 C92.5 22 90 25 86 30 Z"/>
+  <circle cx="86" cy="18.5" r="2.4" fill="#0A1420"/>
+</svg>

@@ -32,6 +32,9 @@ import com.andrerinas.openheadunit.connection.wifi.modes.nativeaa.SoftApAddressR
 import com.andrerinas.openheadunit.connection.wifi.modes.nativeaa.SoftApAdvertisedEndpoint
 import com.andrerinas.openheadunit.connection.wifi.WifiLauncherMode
 
+
+private const val KOVE_FORCE_MANUAL_WIFI = true
+
 class Settings(private val context: Context) {
 
     private val _prefs: SharedPreferences? by lazy {
@@ -93,7 +96,7 @@ class Settings(private val context: Context) {
         }
 
     var resolutionId: Int
-        get() = prefs.getInt("resolutionId", 0)
+        get() = prefs.getInt("resolutionId", 2) // Kove fork: 720p (720x1280 portrait) suits the 600x1024 TFT
         set(value) = prefs.edit().putInt("resolutionId", value).apply()
 
     // How the video is fitted into the panel, in CSS object-fit terms: FILL stretches,
@@ -368,7 +371,7 @@ class Settings(private val context: Context) {
         }
 
     var dpiPixelDensity: Int
-        get() = prefs.getInt("dpi-pixel-density", 0) // Default 0 for Auto
+        get() = prefs.getInt("dpi-pixel-density", 126) // Kove fork: with 720p, 126 is the highest DPI at which Google Maps touch (search) still works; 127 fails
         set(value) {
             prefs.edit().putInt("dpi-pixel-density", value).apply()
         }
@@ -1024,8 +1027,12 @@ class Settings(private val context: Context) {
         set(value) { prefs.edit().putBoolean("hide-clock", value).apply() }
 
     // 0 = Manual, 1 = Auto (Headunit Server), 2 = Helper (Wifi Launcher), 3 = Native AA
+    // Kove fork: always Manual. Self mode reaches Android Auto's head unit server on its own, and the
+    // other modes keep waking paired Bluetooth devices and raising a Wi-Fi Direct group in the
+    // background, which competes with the motorcycle's Wi-Fi and Bluetooth.
     var wifiConnectionMode: WifiLauncherMode
         get() {
+            if (KOVE_FORCE_MANUAL_WIFI) return WifiLauncherMode.MANUAL
             // Migration: Check if old helper boolean exists
             if (prefs.contains("wifi-launcher-mode")) {
                 val old = prefs.getBoolean("wifi-launcher-mode", false)
