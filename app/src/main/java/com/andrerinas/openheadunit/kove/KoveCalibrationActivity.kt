@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.SeekBar
 import android.widget.TextView
 import com.andrerinas.openheadunit.R
@@ -77,7 +78,13 @@ class KoveCalibrationActivity : Activity() {
             setOnClickListener { finish() }
         })
         root.addView(buttons)
-        setContentView(root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        // The help text is long on a phone: let the whole screen scroll so every slider and button is reachable.
+        val scroller = ScrollView(this).apply {
+            setBackgroundColor(Color.parseColor("#101418"))
+            isFillViewport = true
+            addView(root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        }
+        setContentView(scroller, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         updateLabels()
     }
 
