@@ -17,6 +17,14 @@ Anvil pokazuje Android Auto (Mapy Google, Mapy.cz, Waze, muzykę…) na fabryczn
 Telefon udaje radio samochodowe, a obraz trafia na motocykl przez jego Wi‑Fi. Mapa działa także po
 wygaszeniu ekranu telefonu przyciskiem zasilania.
 
+### Skąd nazwa Anvil
+Na polskim forum Kove 800X nazywa się „kowadło”. Po pierwsze, „Kove” i „kowadło” podobnie brzmią.
+Po drugie, motocykl jest solidny, jak prawdziwe kowadło. Anvil to po angielsku „kowadło”
+(nie każdy musi to wiedzieć, dla innych jest to oczywiste).
+
+Ikona pokazuje stalowe kowadło, a na nim pomarańczową pinezkę mapy z iskrami. Kowadło to motocykl,
+pinezka to nawigacja, czyli to, co robi aplikacja.
+
 ### Pobieranie
 Plik APK: zakładka **[Releases](https://github.com/MITI374/anvil/releases)**.
 
@@ -46,6 +54,9 @@ Domyślnie: 720p i DPI 126 (wyższe DPI psuje dotyk w Mapach Google w pionie).
 
 Anvil shows Android Auto (Google Maps, Waze, music…) on the Kove 800X's stock TFT. The phone acts as a car
 head unit and streams the picture over the motorcycle's Wi‑Fi. The map keeps running with the phone screen off.
+
+**The name:** Polish riders call the Kove 800X *kowadło* – "anvil": it sounds like "Kove", and the bike is
+as solid as one. The icon is an anvil with a map pin on it: the motorcycle and the navigation.
 
 **Download:** see **[Releases](https://github.com/MITI374/anvil/releases)**.
 
