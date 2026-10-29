@@ -41,7 +41,9 @@ leci wtedy przez dane komórkowe (włącz „Przełączaj na dane mobilne automa
 
 ### Jazda
 1. Włącz motocykl.
-2. Android Auto → **⋮** → **Uruchom serwer jednostki głównej** (radioodtwarzacza).
+2. Android Auto (Ustawienia → Połączone urządzenia → Android Auto) → **⋮** w prawym górnym rogu →
+   **Włącz serwer radioodtwarzacza** (w innych wersjach: „Uruchom serwer jednostki głównej”).
+   Przed każdą jazdą. Trzy kropki pojawiają się dopiero w trybie programisty.
 3. Anvil → **Tryb samodzielny**. Po 10–20 s Android Auto pojawia się na motocyklu.
 4. Raz: ikona **Anvil – dopasowanie ekranu** – suwakami dopasuj obraz do pasków wyświetlacza
    (zielona ramka na motocyklu).
@@ -49,6 +51,7 @@ leci wtedy przez dane komórkowe (włącz „Przełączaj na dane mobilne automa
 Domyślnie: 720p i DPI 155 (powyżej ok. 157 przestaje działać dotyk w Mapach Google).
 
 ### Ograniczenia
+- Tylko telefony z Androidem. Wersji na iPhone'a (Apple) nie planuję.
 - Wymaga trybu programisty Android Auto; aktualizacja Android Auto może to zepsuć.
 - Testowane: Kove 800X, Motorola Edge 50 Ultra, Android 16/17, Android Auto 17.7.
 
@@ -62,13 +65,13 @@ head unit and streams the picture over the motorcycle's Wi‑Fi. The map keeps r
 **The name:** Polish riders call the Kove 800X *kowadło* – "anvil": it sounds like "Kove", and the bike is
 as solid as one. The icon is an anvil with a map pin on it: the motorcycle and the navigation.
 
-**Download:** see **[Releases](https://github.com/MITI374/anvil/releases)**.
+**Download:** see **[Releases](https://github.com/MITI374/anvil/releases)**. Android phones only; no iPhone version is planned.
 
 **Setup (once):** pair the phone with the TFT over Bluetooth (`CQKY…`); enable Android Auto developer mode
 (tap *Version* 10×); turn on *Start Android Auto while locked*; connect to the motorcycle Wi‑Fi by hand once. If the phone is on another Wi‑Fi (e.g. at home),
 switch to the motorcycle network (`CQKY_…`) by hand; with no Wi‑Fi connected, Anvil joins it by itself.
 
-**Ride:** start the bike → Android Auto **⋮** → **Start head unit server** → Anvil → **Self mode**.
+**Ride:** start the bike → Android Auto settings **⋮** → **Start head unit server** (before every ride) → Anvil → **Self mode**.
 Use **Anvil – screen fit** once to fit the picture between the TFT's own instrument strips.
 
 ---
