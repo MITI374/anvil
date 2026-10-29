@@ -34,6 +34,11 @@ Plik APK: zakładka **[Releases](https://github.com/MITI374/anvil/releases)**.
 3. Android Auto: włącz **Uruchamiaj Androida Auto bez odblokowywania telefonu**.
 4. Raz połącz się ręcznie z Wi‑Fi motocykla – Anvil zapamięta jego nazwę.
 
+**Wi‑Fi motocykla:** jeśli telefon nie jest połączony z żadną siecią Wi‑Fi, Anvil połączy się
+z siecią motocykla sam. Jeśli telefon jest w innej sieci (np. domowej), Android go nie przełączy –
+przed jazdą wybierz ręcznie sieć motocykla (`CQKY_…`) w ustawieniach Wi‑Fi. Internet dla Map
+leci wtedy przez dane komórkowe (włącz „Przełączaj na dane mobilne automatycznie”).
+
 ### Jazda
 1. Włącz motocykl.
 2. Android Auto → **⋮** → **Uruchom serwer jednostki głównej** (radioodtwarzacza).
@@ -61,7 +66,8 @@ as solid as one. The icon is an anvil with a map pin on it: the motorcycle and t
 **Download:** see **[Releases](https://github.com/MITI374/anvil/releases)**.
 
 **Setup (once):** pair the phone with the TFT over Bluetooth (`CQKY…`); enable Android Auto developer mode
-(tap *Version* 10×); turn on *Start Android Auto while locked*; connect to the motorcycle Wi‑Fi by hand once.
+(tap *Version* 10×); turn on *Start Android Auto while locked*; connect to the motorcycle Wi‑Fi by hand once. If the phone is on another Wi‑Fi (e.g. at home),
+switch to the motorcycle network (`CQKY_…`) by hand; with no Wi‑Fi connected, Anvil joins it by itself.
 
 **Ride:** start the bike → Android Auto **⋮** → **Start head unit server** → Anvil → **Self mode**.
 Use **Anvil – screen fit** once to fit the picture between the TFT's own instrument strips.
