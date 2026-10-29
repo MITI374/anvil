@@ -2,11 +2,20 @@
 <resources>
     <string name="kove_calibration_label">Anvil – dopasowanie ekranu</string>
     <string name="kove_calibration_title">Dopasuj obraz do wyświetlacza Kove</string>
-    <string name="kove_calibration_help">Uruchom Android Auto z podłączonym motocyklem. Zielona ramka na wyświetlaczu motocykla pokazuje, gdzie trafia obraz. Przesuwaj suwaki, aż górna i dolna krawędź ramki znajdą się tuż pod górnym i nad dolnym paskiem wyświetlacza. Przesunięcie dolnego suwaka poniżej zera obcina dół Android Auto (kafelki i pasek aplikacji) i oddaje to miejsce mapie; na telefonie zostają widoczne. Potem ustaw szerokość tak, aby zielony kwadrat na środku wyglądał jak kwadrat, a nie prostokąt.</string>
+    <string name="kove_calibration_help">Uruchom Android Auto z podłączonym motocyklem. Zielona ramka na wyświetlaczu motocykla pokazuje, gdzie trafia obraz. Przesuwaj suwaki, aż górna i dolna krawędź ramki znajdą się tuż pod górnym i nad dolnym paskiem wyświetlacza. Przesunięcie dolnego suwaka poniżej zera obcina dół Android Auto (kafelki i pasek aplikacji) i oddaje to miejsce mapie; na telefonie zostają widoczne. Dotknij napisu nad suwakiem, aby wpisać wartość; przyciski ±1 i ±10 przesuwają dokładnie. Potem ustaw szerokość tak, aby zielony kwadrat na środku wyglądał jak kwadrat, a nie prostokąt.</string>
     <string name="kove_calibration_top">Górny pasek (zegar, bieg): %1$d px</string>
     <string name="kove_calibration_bottom">Dolny pasek (obroty, paliwo): %1$d px</string>
     <string name="kove_calibration_reset">Domyślne</string>
     <string name="kove_calibration_done">Gotowe</string>
     <string name="kove_calibration_width">Szerokość obrazu (proporcje): %1$d%%</string>
     <string name="kove_calibration_bottom_cut">Dolny pasek: obcięty dół Android Auto %1$d px</string>
+    <string name="kove_calibration_top_short">Górny pasek (px)</string>
+    <string name="kove_calibration_bottom_short">Dolny pasek (px, poniżej zera obcina dół Android Auto)</string>
+    <string name="kove_calibration_width_short">Szerokość obrazu (%)</string>
+    <string name="kove_calibration_range">Zakres: %1$d … %2$d</string>
+    <string name="kove_join_wifi">Połącz z Wi‑Fi motocykla</string>
+    <string name="kove_join_wifi_requested">Android zapyta o połączenie z siecią motocykla – zatwierdź je.</string>
+    <string name="kove_join_wifi_connected">Telefon jest już połączony z Wi‑Fi motocykla.</string>
+    <string name="kove_join_wifi_no_session">Najpierw uruchom Tryb samodzielny z włączonym motocyklem.</string>
+    <string name="kove_join_wifi_unknown">Anvil nie zna jeszcze nazwy sieci motocykla – połącz się z nią raz ręcznie.</string>
 </resources>

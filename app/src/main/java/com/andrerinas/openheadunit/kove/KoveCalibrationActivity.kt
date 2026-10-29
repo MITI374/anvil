@@ -1,6 +1,10 @@
 package com.andrerinas.openheadunit.kove
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.text.InputType
+import android.widget.EditText
+import android.widget.Toast
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
@@ -50,14 +54,20 @@ class KoveCalibrationActivity : Activity() {
         topBar = slider(KoveSettings.hiddenTop, KoveSettings.MAX_HIDDEN)
         bottomLabel = text("", 17f)
         bottomBar = slider(KoveSettings.hiddenBottom - KoveSettings.MIN_BOTTOM, KoveSettings.MAX_HIDDEN - KoveSettings.MIN_BOTTOM)
-        root.addView(topLabel)
-        root.addView(topBar)
-        root.addView(bottomLabel)
-        root.addView(bottomBar)
         widthLabel = text("", 17f)
         widthBar = slider(KoveSettings.widthPercent - KoveSettings.MIN_WIDTH, KoveSettings.MAX_WIDTH - KoveSettings.MIN_WIDTH)
-        root.addView(widthLabel)
-        root.addView(widthBar)
+
+        // Each setting: tap the label to type the value; the buttons nudge it; the slider drags it.
+        addSetting(root, topLabel, topBar, 0, R.string.kove_calibration_top_short)
+        addSetting(root, bottomLabel, bottomBar, KoveSettings.MIN_BOTTOM, R.string.kove_calibration_bottom_short)
+        addSetting(root, widthLabel, widthBar, KoveSettings.MIN_WIDTH, R.string.kove_calibration_width_short)
+
+        root.addView(Button(this).apply {
+            text = getString(R.string.kove_join_wifi)
+            setOnClickListener { joinWifi() }
+        }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+            topMargin = (20 * dp).toInt()
+        })
 
         val buttons = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
@@ -96,6 +106,57 @@ class KoveCalibrationActivity : Activity() {
     override fun onPause() {
         super.onPause()
         KoveSettings.calibrating = false
+    }
+
+    /** Label (tap to type), slider, and a row of nudge buttons. [offset] maps slider position to value. */
+    private fun addSetting(root: LinearLayout, label: TextView, bar: SeekBar, offset: Int, titleRes: Int) {
+        label.setOnClickListener { askValue(bar, offset, titleRes) }
+        root.addView(label)
+        root.addView(bar)
+        val row = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        for (step in intArrayOf(-10, -1, 1, 10)) {
+            row.addView(Button(this).apply {
+                text = if (step > 0) "+$step" else "$step"
+                minWidth = 0
+                minimumWidth = 0
+                setOnClickListener {
+                    bar.progress = (bar.progress + step).coerceIn(0, bar.max)
+                    updateLabels()
+                    apply()
+                }
+            }, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+        }
+        root.addView(row)
+    }
+
+    private fun askValue(bar: SeekBar, offset: Int, titleRes: Int) {
+        val input = EditText(this).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED
+            setText((bar.progress + offset).toString())
+            selectAll()
+        }
+        AlertDialog.Builder(this)
+            .setTitle(titleRes)
+            .setMessage(getString(R.string.kove_calibration_range, offset, bar.max + offset))
+            .setView(input)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                val value = input.text.toString().trim().toIntOrNull() ?: return@setPositiveButton
+                bar.progress = (value - offset).coerceIn(0, bar.max)
+                updateLabels()
+                apply()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun joinWifi() {
+        val msg = when (KoveBridge.joinTftWifiNow()) {
+            KoveBridge.JoinResult.REQUESTED -> R.string.kove_join_wifi_requested
+            KoveBridge.JoinResult.ALREADY_CONNECTED -> R.string.kove_join_wifi_connected
+            KoveBridge.JoinResult.NO_SESSION -> R.string.kove_join_wifi_no_session
+            KoveBridge.JoinResult.NAME_UNKNOWN -> R.string.kove_join_wifi_unknown
+        }
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
     private fun slider(value: Int, range: Int) = SeekBar(this).apply {

@@ -281,6 +281,26 @@ object KoveBridge {
         }
     }
 
+    enum class JoinResult { REQUESTED, ALREADY_CONNECTED, NO_SESSION, NAME_UNKNOWN }
+
+    /**
+     * Asks Android for the motorcycle Wi-Fi now, from a screen the user is looking at: Android only
+     * shows its approval dialog for an app in the foreground, which the automatic attempt may not be.
+     */
+    fun joinTftWifiNow(): JoinResult {
+        val ctx = context ?: return JoinResult.NO_SESSION
+        if (!active) return JoinResult.NO_SESSION
+        if (link != null) return JoinResult.ALREADY_CONNECTED
+        if (KoveSettings.tftSsid(ctx) == null) return JoinResult.NAME_UNKNOWN
+        tftWifiCallback?.let { cb ->
+            val cm = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            runCatching { cm.unregisterNetworkCallback(cb) }
+        }
+        tftWifiCallback = null
+        joinTftWifi.run()
+        return JoinResult.REQUESTED
+    }
+
     private fun requestTftWifi() {
         val ctx = context ?: return
         if (!active || link != null || tftWifiCallback != null) return
