@@ -41,7 +41,7 @@ Plik APK: zakładka **[Releases](https://github.com/MITI374/anvil/releases)**.
 4. Raz: ikona **Anvil – dopasowanie ekranu** – suwakami dopasuj obraz do pasków wyświetlacza
    (zielona ramka na motocyklu).
 
-Domyślnie: 720p i DPI 126 (wyższe DPI psuje dotyk w Mapach Google w pionie).
+Domyślnie: 720p i DPI 155 (powyżej ok. 157 przestaje działać dotyk w Mapach Google).
 
 ### Ograniczenia
 - Wymaga trybu programisty Android Auto; aktualizacja Android Auto może to zepsuć.

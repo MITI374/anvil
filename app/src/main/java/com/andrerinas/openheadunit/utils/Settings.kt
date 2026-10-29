@@ -371,7 +371,7 @@ class Settings(private val context: Context) {
         }
 
     var dpiPixelDensity: Int
-        get() = prefs.getInt("dpi-pixel-density", 126) // Kove fork: with 720p, 126 is the highest DPI at which Google Maps touch (search) still works; 127 fails
+        get() = prefs.getInt("dpi-pixel-density", 155) // Kove fork: Google Maps touch (search) needs Android Auto at least ~730 dp wide; 720 px * 160 / 155 = 743 dp (165 fails)
         set(value) {
             prefs.edit().putInt("dpi-pixel-density", value).apply()
         }
