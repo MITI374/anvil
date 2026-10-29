@@ -18,4 +18,12 @@
     <string name="kove_join_wifi_connected">The phone is already on the motorcycle Wi‑Fi.</string>
     <string name="kove_join_wifi_no_session">Start Self mode with the motorcycle on first.</string>
     <string name="kove_join_wifi_unknown">Anvil does not know the motorcycle network yet – connect to it by hand once.</string>
+    <string name="kove_badge_button">Range and consumption on the bike: %1$s</string>
+    <string-array name="kove_badge_positions">
+        <item>off</item>
+        <item>top left</item>
+        <item>top right</item>
+        <item>bottom left</item>
+        <item>bottom right</item>
+    </string-array>
 </resources>

@@ -106,6 +106,7 @@ object KoveBridge {
             active = false
         }
         KoveLog.i("Bridge stopping")
+        VehicleData.clear()
         main.removeCallbacks(focusRequester)
         main.removeCallbacks(logPublisher)
         ble?.disconnect()

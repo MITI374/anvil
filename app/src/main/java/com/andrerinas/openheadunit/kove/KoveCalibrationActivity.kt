@@ -62,6 +62,18 @@ class KoveCalibrationActivity : Activity() {
         addSetting(root, bottomLabel, bottomBar, KoveSettings.MIN_BOTTOM, R.string.kove_calibration_bottom_short)
         addSetting(root, widthLabel, widthBar, KoveSettings.MIN_WIDTH, R.string.kove_calibration_width_short)
 
+        val badgeNames = resources.getStringArray(R.array.kove_badge_positions)
+        root.addView(Button(this).apply {
+            fun label() { text = getString(R.string.kove_badge_button, badgeNames[KoveSettings.badgeCorner]) }
+            label()
+            setOnClickListener {
+                KoveSettings.saveBadge(this@KoveCalibrationActivity, (KoveSettings.badgeCorner + 1) % 5)
+                label()
+            }
+        }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+            topMargin = (20 * dp).toInt()
+        })
+
         root.addView(Button(this).apply {
             text = getString(R.string.kove_join_wifi)
             setOnClickListener { joinWifi() }

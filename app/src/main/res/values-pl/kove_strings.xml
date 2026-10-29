@@ -18,4 +18,12 @@
     <string name="kove_join_wifi_connected">Telefon jest już połączony z Wi‑Fi motocykla.</string>
     <string name="kove_join_wifi_no_session">Najpierw uruchom Tryb samodzielny z włączonym motocyklem.</string>
     <string name="kove_join_wifi_unknown">Anvil nie zna jeszcze nazwy sieci motocykla – połącz się z nią raz ręcznie.</string>
+    <string name="kove_badge_button">Zasięg i spalanie na motocyklu: %1$s</string>
+    <string-array name="kove_badge_positions">
+        <item>wyłączone</item>
+        <item>lewy górny róg</item>
+        <item>prawy górny róg</item>
+        <item>lewy dolny róg</item>
+        <item>prawy dolny róg</item>
+    </string-array>
 </resources>

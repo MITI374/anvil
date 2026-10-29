@@ -49,6 +49,7 @@ internal class FrameScaler(
         private set
 
     private val texMatrix = FloatArray(16)
+    private val badge = BadgeLayer()
 
     // Source frame size and the margin (total pixels) Android Auto leaves empty in it.
     @Volatile private var frameW = 0
@@ -74,6 +75,7 @@ internal class FrameScaler(
             try {
                 setUpEgl()
                 setUpProgram()
+                badge.setUp()
                 val st = SurfaceTexture(texture)
                 st.setOnFrameAvailableListener({ draw() }, handler)
                 frames = st
@@ -186,6 +188,7 @@ internal class FrameScaler(
             GLES20.glVertexAttribPointer(aCorner, 2, GLES20.GL_FLOAT, false, 0, corners)
             GLES20.glEnableVertexAttribArray(aCorner)
             GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
+            badge.draw(targetWidth, targetHeight, top, bandH, KoveSettings.badgeCorner)
             if (KoveSettings.calibrating) outline(top, bandH)
 
             EGLExt.eglPresentationTimeANDROID(display, surface, st.timestamp)

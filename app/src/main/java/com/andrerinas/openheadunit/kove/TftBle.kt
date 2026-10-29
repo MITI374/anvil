@@ -201,6 +201,7 @@ class TftBle(
     private fun onMessage(text: String) {
         KoveLog.i("BLE from TFT: ${text.replace(Regex("\\s+"), " ").take(160)}")
         val json = runCatching { JSONObject(text) }.getOrNull() ?: return
+        VehicleData.update(json)
         val paired = json.optInt("msg_id") == 27 &&
             json.optString("act") == "send_pairresult" &&
             json.optInt("result") == 1

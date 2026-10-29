@@ -53,6 +53,7 @@ object KoveSettings {
         hiddenTop = p.getInt(KEY_TOP, DEFAULT_TOP).coerceIn(0, MAX_HIDDEN)
         hiddenBottom = p.getInt(KEY_BOTTOM, DEFAULT_BOTTOM).coerceIn(MIN_BOTTOM, MAX_HIDDEN)
         widthPercent = p.getInt(KEY_WIDTH, DEFAULT_WIDTH).coerceIn(MIN_WIDTH, MAX_WIDTH)
+        badgeCorner = p.getInt(KEY_BADGE, 3).coerceIn(0, 4)
     }
 
     fun save(context: Context, top: Int, bottom: Int, width: Int) {
@@ -64,6 +65,23 @@ object KoveSettings {
             .putInt(KEY_BOTTOM, hiddenBottom)
             .putInt(KEY_WIDTH, widthPercent)
             .apply()
+    }
+
+    private const val KEY_BADGE = "badge_corner"
+
+    /** Range/consumption badge: 0 off, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right. */
+    @Volatile var badgeCorner = 3
+        private set
+
+    fun loadBadge(context: Context) {
+        badgeCorner = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .getInt(KEY_BADGE, 3).coerceIn(0, 4)
+    }
+
+    fun saveBadge(context: Context, corner: Int) {
+        badgeCorner = corner.coerceIn(0, 4)
+        context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+            .putInt(KEY_BADGE, badgeCorner).apply()
     }
 
     private const val KEY_SSID = "tft_wifi_ssid"
