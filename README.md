@@ -51,7 +51,6 @@ Domyślnie: 720p i DPI 155 (powyżej ok. 157 przestaje działać dotyk w Mapach 
 ### Ograniczenia
 - Wymaga trybu programisty Android Auto; aktualizacja Android Auto może to zepsuć.
 - Testowane: Kove 800X, Motorola Edge 50 Ultra, Android 16/17, Android Auto 17.7.
-- Nie obsługuj telefonu w czasie jazdy.
 
 ---
 
