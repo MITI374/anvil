@@ -54,6 +54,7 @@ object KoveSettings {
         hiddenBottom = p.getInt(KEY_BOTTOM, DEFAULT_BOTTOM).coerceIn(MIN_BOTTOM, MAX_HIDDEN)
         widthPercent = p.getInt(KEY_WIDTH, DEFAULT_WIDTH).coerceIn(MIN_WIDTH, MAX_WIDTH)
         badgeCorner = p.getInt(KEY_BADGE, 3).coerceIn(0, 4)
+        badgeTextSize = p.getInt(KEY_BADGE_SIZE, DEFAULT_BADGE_SIZE).coerceIn(MIN_BADGE_SIZE, MAX_BADGE_SIZE)
     }
 
     fun save(context: Context, top: Int, bottom: Int, width: Int) {
@@ -68,6 +69,21 @@ object KoveSettings {
     }
 
     private const val KEY_BADGE = "badge_corner"
+    private const val KEY_BADGE_SIZE = "badge_text_size"
+
+    const val DEFAULT_BADGE_SIZE = 34
+    const val MIN_BADGE_SIZE = 18
+    const val MAX_BADGE_SIZE = 72
+
+    /** Height of the badge's main line on the TFT, in pixels. */
+    @Volatile var badgeTextSize = DEFAULT_BADGE_SIZE
+        private set
+
+    fun saveBadgeSize(context: Context, size: Int) {
+        badgeTextSize = size.coerceIn(MIN_BADGE_SIZE, MAX_BADGE_SIZE)
+        context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+            .putInt(KEY_BADGE_SIZE, badgeTextSize).apply()
+    }
 
     /** Range/consumption badge: 0 off, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right. */
     @Volatile var badgeCorner = 3

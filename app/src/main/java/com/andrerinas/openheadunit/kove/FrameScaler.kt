@@ -77,9 +77,10 @@ internal class FrameScaler(
                 setUpProgram()
                 badge.setUp()
                 val st = SurfaceTexture(texture)
-                st.setOnFrameAvailableListener({ draw() }, handler)
+                st.setOnFrameAvailableListener({ draw(newFrame = true) }, handler)
                 frames = st
                 inputSurface = Surface(st)
+                handler.postDelayed(overlayTick, 250)
                 ok = true
             } catch (e: Exception) {
                 KoveLog.e("Scaler GL setup failed: ${e.message}")
@@ -109,6 +110,7 @@ internal class FrameScaler(
 
     fun release() {
         if (!thread.isAlive) return
+        handler.removeCallbacks(overlayTick)
         val done = CountDownLatch(1)
         handler.post {
             runCatching { frames?.release() }
@@ -127,11 +129,32 @@ internal class FrameScaler(
 
     // ─── Drawing ──────────────────────────────────────────────────
 
-    private fun draw() {
+    // A still map sends almost no video, so the badge would lag behind the TFT's data. The tick
+    // redraws the last picture with the current badge whenever the data (or calibration) changed.
+    private var drawnDataVersion = -1
+    private var drawnCalibrating = false
+    private var lastPts = 0L
+    private var haveFrame = false
+
+    private val overlayTick = object : Runnable {
+        override fun run() {
+            if (haveFrame && (VehicleData.version != drawnDataVersion || KoveSettings.calibrating != drawnCalibrating)) {
+                draw(newFrame = false)
+            }
+            handler.postDelayed(this, 250)
+        }
+    }
+
+    private fun draw(newFrame: Boolean) {
         val st = frames ?: return
         try {
-            st.updateTexImage()
-            st.getTransformMatrix(texMatrix)
+            if (newFrame) {
+                st.updateTexImage()
+                st.getTransformMatrix(texMatrix)
+                haveFrame = true
+            }
+            drawnDataVersion = VehicleData.version
+            drawnCalibrating = KoveSettings.calibrating
 
             // Visible part of the source, in texture coordinates (margins are split evenly).
             val w = frameW
@@ -191,7 +214,10 @@ internal class FrameScaler(
             badge.draw(targetWidth, targetHeight, top, bandH, KoveSettings.badgeCorner)
             if (KoveSettings.calibrating) outline(top, bandH)
 
-            EGLExt.eglPresentationTimeANDROID(display, surface, st.timestamp)
+            // Timestamps must keep rising for the encoder, also for redraws without a new video frame.
+            val pts = maxOf(if (newFrame) st.timestamp else System.nanoTime(), lastPts + 1_000_000L)
+            lastPts = pts
+            EGLExt.eglPresentationTimeANDROID(display, surface, pts)
             EGL14.eglSwapBuffers(display, surface)
         } catch (e: Exception) {
             KoveLog.w("Scaler draw failed: ${e.message}")

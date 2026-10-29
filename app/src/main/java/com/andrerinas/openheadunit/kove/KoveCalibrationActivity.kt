@@ -29,6 +29,8 @@ class KoveCalibrationActivity : Activity() {
     private lateinit var bottomBar: SeekBar
     private lateinit var widthLabel: TextView
     private lateinit var widthBar: SeekBar
+    private lateinit var badgeSizeLabel: TextView
+    private lateinit var badgeSizeBar: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,10 @@ class KoveCalibrationActivity : Activity() {
         addSetting(root, topLabel, topBar, 0, R.string.kove_calibration_top_short)
         addSetting(root, bottomLabel, bottomBar, KoveSettings.MIN_BOTTOM, R.string.kove_calibration_bottom_short)
         addSetting(root, widthLabel, widthBar, KoveSettings.MIN_WIDTH, R.string.kove_calibration_width_short)
+
+        badgeSizeLabel = text("", 17f)
+        badgeSizeBar = slider(KoveSettings.badgeTextSize - KoveSettings.MIN_BADGE_SIZE, KoveSettings.MAX_BADGE_SIZE - KoveSettings.MIN_BADGE_SIZE)
+        addSetting(root, badgeSizeLabel, badgeSizeBar, KoveSettings.MIN_BADGE_SIZE, R.string.kove_badge_size_short)
 
         val badgeNames = resources.getStringArray(R.array.kove_badge_positions)
         root.addView(Button(this).apply {
@@ -188,6 +194,7 @@ class KoveCalibrationActivity : Activity() {
 
     private fun apply() {
         KoveSettings.save(this, topBar.progress, bottomValue(), KoveSettings.MIN_WIDTH + widthBar.progress)
+        if (::badgeSizeBar.isInitialized) KoveSettings.saveBadgeSize(this, KoveSettings.MIN_BADGE_SIZE + badgeSizeBar.progress)
         KoveBridge.applyTftInsets()
     }
 
@@ -200,6 +207,9 @@ class KoveCalibrationActivity : Activity() {
         bottomLabel.text = if (bottom >= 0) getString(R.string.kove_calibration_bottom, bottom)
         else getString(R.string.kove_calibration_bottom_cut, -bottom)
         widthLabel.text = getString(R.string.kove_calibration_width, KoveSettings.MIN_WIDTH + widthBar.progress)
+        if (::badgeSizeBar.isInitialized) {
+            badgeSizeLabel.text = getString(R.string.kove_badge_size, KoveSettings.MIN_BADGE_SIZE + badgeSizeBar.progress)
+        }
     }
 
     override fun finish() {

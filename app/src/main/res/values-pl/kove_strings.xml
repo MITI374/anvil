@@ -26,4 +26,6 @@
         <item>lewy dolny róg</item>
         <item>prawy dolny róg</item>
     </string-array>
+    <string name="kove_badge_size">Wielkość czcionki zasięgu i spalania: %1$d px</string>
+    <string name="kove_badge_size_short">Wielkość czcionki (px)</string>
 </resources>

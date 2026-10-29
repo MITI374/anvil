@@ -50,11 +50,20 @@ object VehicleData {
         return true
     }
 
-    /** Text for the overlay, e.g. "163 km   4.5 l/100", or null while nothing is known yet. */
-    fun badgeText(): String? {
-        val parts = ArrayList<String>(2)
-        rangeKm?.let { parts += "$it km" }
-        consumptionTenths?.let { parts += String.format(Locale.US, "%.1f l/100", it / 10f) }
-        return if (parts.isEmpty()) null else parts.joinToString("   ")
+    /**
+     * Lines for the overlay: consumption first, range below; empty while nothing is known.
+     * The TFT reports 0 while the bike stands still (l/100 km has no meaning at 0 km/h, and it sends
+     * no fuel flow), so a stop shows the trip average instead, marked with a diameter sign.
+     */
+    fun badgeLines(): List<String> {
+        val lines = ArrayList<String>(2)
+        val now = consumptionTenths
+        val avg = averageTenths
+        when {
+            now != null && now > 0 -> lines += String.format(Locale.US, "%.1f l/100 km", now / 10f)
+            avg != null && avg > 0 -> lines += String.format(Locale.US, "\u2300 %.1f l/100 km", avg / 10f)
+        }
+        rangeKm?.let { lines += "$it km" }
+        return lines
     }
 }

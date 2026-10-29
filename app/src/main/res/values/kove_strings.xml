@@ -26,4 +26,6 @@
         <item>bottom left</item>
         <item>bottom right</item>
     </string-array>
+    <string name="kove_badge_size">Range and consumption text size: %1$d px</string>
+    <string name="kove_badge_size_short">Text size (px)</string>
 </resources>
