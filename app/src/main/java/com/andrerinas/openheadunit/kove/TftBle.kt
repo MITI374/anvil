@@ -45,6 +45,7 @@ class TftBle(
         private const val WRITE_GAP_MS = 150L
         private const val STATUS_EVERY_MS = 5000L
         private const val MAX_RETRIES = 4
+        private const val SLOW_RETRY_MS = 60_000L
 
         /** The paired Kove TFT (its Bluetooth name contains "CQKY"), or null. */
         fun findPairedTft(): String? = try {
@@ -117,18 +118,31 @@ class TftBle(
         writeChar = null
     }
 
+    /** Connects again now, unless already linked: the motorcycle's Wi-Fi showing up means the TFT is on. */
+    fun reconnect() {
+        if (stopped || linked) return
+        main.removeCallbacks(reopen)
+        retries = 0
+        KoveLog.i("BLE: motorcycle is on - connecting again")
+        open()
+    }
+
+    private val reopen = Runnable { if (!stopped) open() }
+
     private fun retry(reason: String) {
         linked = false
         close()
         if (stopped) return
-        if (retries >= MAX_RETRIES) {
-            KoveLog.w("BLE: $reason - giving up after $retries retries")
-            return
-        }
-        val delay = 2000L shl retries
+        // A few quick tries, then one a minute for as long as the session lasts: the bike may be
+        // switched off for a while and on again without the Android Auto session ending.
+        val delay = if (retries < MAX_RETRIES) 2000L shl retries else SLOW_RETRY_MS
         retries++
-        KoveLog.w("BLE: $reason - retry $retries in ${delay / 1000} s")
-        main.postDelayed({ if (!stopped) open() }, delay)
+        when {
+            retries <= MAX_RETRIES -> KoveLog.w("BLE: $reason - retry $retries in ${delay / 1000} s")
+            retries == MAX_RETRIES + 1 -> KoveLog.w("BLE: $reason - trying again every ${delay / 1000} s")
+        }
+        main.removeCallbacks(reopen)
+        main.postDelayed(reopen, delay)
     }
 
     private val callback = object : BluetoothGattCallback() {

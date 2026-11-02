@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
 import com.andrerinas.openheadunit.App
+import com.andrerinas.openheadunit.BuildConfig
 import com.andrerinas.openheadunit.aap.protocol.messages.VideoFocusEvent
 import com.andrerinas.openheadunit.utils.HeadUnitScreenConfig
 import java.net.Inet4Address
@@ -62,7 +63,7 @@ object KoveBridge {
         val app = ctx.applicationContext
         context = app
         KoveLog.open(app)
-        KoveLog.i("Bridge starting (Android Auto session connected)")
+        KoveLog.i("Bridge starting (Android Auto session connected), Anvil ${BuildConfig.VERSION_NAME}")
         unitsIn = 0
         focusRequests = 0
 
@@ -256,6 +257,7 @@ object KoveBridge {
             boundNetwork = network
             KoveLog.i("On the motorcycle Wi-Fi ($ip)")
             startLink(ip)
+            ble?.reconnect()
         }
     }
 
