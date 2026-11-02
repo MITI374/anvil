@@ -96,8 +96,8 @@ android {
         applicationId = "io.github.miti374.anvil"
         minSdk = 16
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.0.1-test2"
+        versionCode = 4
+        versionName = "1.0.1"
         setProperty("archivesBaseName", "${applicationId}_${versionName}")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true

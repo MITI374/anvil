@@ -210,7 +210,7 @@ class TftLink(
         KoveLog.w("TFT control disconnected")
     }
 
-    // ─── Incoming data log (looking for handlebar button presses) ──
+    // ─── Incoming data log (diagnostics; the TFT sends no button presses) ──
 
     private val lastIncoming = HashMap<String, String>()
 
