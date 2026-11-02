@@ -85,7 +85,7 @@ object KoveSettings {
             .putInt(KEY_BADGE_SIZE, badgeTextSize).apply()
     }
 
-    /** Range/consumption badge: 0 off, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right. */
+    /** Range badge: 0 off, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right. */
     @Volatile var badgeCorner = 3
         private set
 

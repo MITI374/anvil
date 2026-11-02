@@ -154,7 +154,9 @@ class TftLink(
             var lastKeepAlive = System.currentTimeMillis()
             while (running.get() && videoOut === out) {
                 try {
-                    if (input.read(sink) < 0) break  // TFT closed the connection
+                    val n = input.read(sink)
+                    if (n < 0) break  // TFT closed the connection
+                    logIncoming("video", sink.copyOf(n))
                 } catch (_: SocketTimeoutException) {
                 }
                 val now = System.currentTimeMillis()
@@ -192,7 +194,9 @@ class TftLink(
                 when (msg) {
                     is TftPacket.Incoming.KeepAlive -> out.write(TftPacket.KEEP_ALIVE)
                     is TftPacket.Incoming.Json -> KoveLog.i("TFT control: ${msg.text.take(200)}")
-                    is TftPacket.Incoming.Binary -> Unit
+                    is TftPacket.Incoming.Binary -> logIncoming(
+                        "control %02X/%02X".format(msg.kind, msg.command), msg.payload
+                    )
                 }
                 if (!greeted) {
                     // The TFT has answered: complete the handshake once.
@@ -206,10 +210,40 @@ class TftLink(
         KoveLog.w("TFT control disconnected")
     }
 
+    // ─── Incoming data log (looking for handlebar button presses) ──
+
+    private val lastIncoming = HashMap<String, String>()
+
+    /** Logs data the TFT sends us, skipping keep-alives and repeats of the previous packet. */
+    private fun logIncoming(source: String, bytes: ByteArray) {
+        if (bytes.contentEquals(TftPacket.KEEP_ALIVE)) return
+        val hex = bytes.take(64).joinToString(" ") { "%02X".format(it) } +
+            if (bytes.size > 64) " … (${bytes.size} B)" else ""
+        synchronized(lastIncoming) {
+            if (lastIncoming[source] == hex) return
+            lastIncoming[source] = hex
+        }
+        KoveLog.i("TFT data on $source: $hex")
+    }
+
     // ─── Keep-alive (15457) ───────────────────────────────────────
 
     private fun serveKeepAlive(socket: Socket) {
         val out = socket.getOutputStream()
+        val reader = Thread({
+            val buf = ByteArray(256)
+            try {
+                val input = socket.getInputStream()
+                while (running.get()) {
+                    val n = input.read(buf)
+                    if (n < 0) break
+                    logIncoming("keep-alive", buf.copyOf(n))
+                }
+            } catch (_: Exception) {
+            }
+        }, "Kove-keepalive-read")
+        reader.isDaemon = true
+        reader.start()
         while (running.get() && !socket.isClosed) {
             out.write(TftPacket.KEEP_ALIVE)
             out.flush()

@@ -12,7 +12,7 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 /**
- * A small pill with range and fuel consumption, drawn over the picture on the TFT.
+ * A small pill with the range, drawn over the picture on the TFT.
  * Lives on the scaler's GL thread: every call must come from there.
  */
 internal class BadgeLayer {
@@ -95,44 +95,33 @@ internal class BadgeLayer {
         GLES20.glDisable(GLES20.GL_BLEND)
     }
 
-    /** Re-renders the text into the texture only when the trip data changed. */
+    /** Re-renders the text into the texture only when the range changed. */
     private fun refreshBitmap() {
         val size = KoveSettings.badgeTextSize
         val version = (VehicleData.version * 2 + if (KoveSettings.calibrating) 1 else 0) * 128 + size
         if (version == shownVersion) return
         shownVersion = version
-        var lines = VehicleData.badgeLines()
-        if (lines.isEmpty() && KoveSettings.calibrating) lines = listOf("-.- l/100 km", "--- km")
-        hasText = lines.isNotEmpty()
-        if (!hasText) return
+        var text = VehicleData.badgeText()
+        if (text == null && KoveSettings.calibrating) text = "--- km"
+        hasText = text != null
+        if (text == null) return
 
-        // First line (consumption) full size, second (range) a little smaller.
-        val main = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.WHITE
             textSize = size.toFloat()
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         }
-        val second = Paint(main).apply {
-            textSize = size * 0.8f
-            color = Color.rgb(255, 200, 120)
-        }
-        val paints = lines.indices.map { if (it == 0) main else second }
-        val texts = lines.mapIndexed { i, t -> if (i == 0) "\u26FD $t" else t }
+        val label = "\u26FD $text"
         val padX = size * 0.5f
         val padY = size * 0.25f
-        val gap = size * 0.15f
-        val heights = paints.map { p -> p.fontMetrics.let { it.descent - it.ascent } }
-        bitmapW = (texts.indices.maxOf { paints[it].measureText(texts[it]) } + 2 * padX).toInt()
-        bitmapH = (heights.sum() + gap * (texts.size - 1) + 2 * padY).toInt()
+        val metrics = paint.fontMetrics
+        bitmapW = (paint.measureText(label) + 2 * padX).toInt()
+        bitmapH = (metrics.descent - metrics.ascent + 2 * padY).toInt()
         val bmp = Bitmap.createBitmap(bitmapW, bitmapH, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bmp)
         val bg = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.argb(205, 16, 20, 24) }
         canvas.drawRoundRect(RectF(0f, 0f, bitmapW.toFloat(), bitmapH.toFloat()), size * 0.5f, size * 0.5f, bg)
-        var y = padY
-        for (i in texts.indices) {
-            canvas.drawText(texts[i], padX, y - paints[i].fontMetrics.ascent, paints[i])
-            y += heights[i] + gap
-        }
+        canvas.drawText(label, padX, padY - metrics.ascent, paint)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bmp, 0)
         bmp.recycle()
